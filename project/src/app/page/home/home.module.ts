@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import {HomeComponent} from './home.component';
-import {TableModule} from '../../components/table/table.module';
+import {TableComponentModule} from '../../components/table/table.module';
 import {ButtonModule} from 'primeng/button';
 import { HttpClientModule, HttpHandler, ɵHttpInterceptingHandler } from '@angular/common/http';
 
@@ -9,9 +9,8 @@ import { HttpClientModule, HttpHandler, ɵHttpInterceptingHandler } from '@angul
   declarations: [HomeComponent],
   exports: [HomeComponent],
   imports: [
-    TableModule,
     ButtonModule,
-    TableModule,
+    TableComponentModule,
     ],
     providers: [
         HttpClientModule,
