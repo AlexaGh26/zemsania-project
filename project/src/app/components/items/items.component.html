@@ -1,16 +1,56 @@
-<p-table [value]="items">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>_about</th>
-            <th>accessURL </th>
-            <th>title</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-item>
-        <tr>
-            <td>{{items._about}}</td>
-            <td>{{items.accessURL}}</td>
-            <td>{{items.title}}</td>
-        </tr>
-    </ng-template>
+<div>
+  <p-menubar [model]="itemsMenu"></p-menubar>
+</div>
+<p-table [value]="items" [columns]="cols" [paginator]="true" [rows]="5">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        {{item[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
 </p-table>
+
+
+<p-dialog header="New Item" [(visible)]="displaySaveDialog" [modal]="true">
+  <div class="ui-g ui-fluid ">
+
+    <div id="block">
+      <div id="display">
+        <label for="_about">_About</label>
+      </div>
+      <div id="display">
+        <input pInputText id="_about" [(ngModel)]="itemModel._about" required autofocus />
+      </div>
+    </div>
+
+    <div id="block">
+      <div id="display" >
+        <label for="accessURL">AccessURL</label>
+      </div>
+      <div  id="display" >
+        <input pInputText id="accessURL" [(ngModel)]="itemModel.accessURL" required autofocus />
+      </div>
+    </div>
+
+    <div id="block">
+        <div id="display" >
+          <label for="title">Title</label>
+        </div>
+        <div  id="display" >
+          <input pInputText id="title" [(ngModel)]="itemModel.title" required autofocus />
+        </div>
+      </div>
+  </div>
+  <div id="button-container">
+    <button pButton type="button" icon="pi pi-check" label="Send" (click) ="save()" ></button>
+  </div>
+  
+</p-dialog>
