@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './page/home/home.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {TableComponentModule} from '../app/components/table/table.module';
 import { CommonModule } from "@angular/common";
+import {TableModule} from 'primeng/table';
+import { ItemsModule } from './components/items/items.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +19,10 @@ import { CommonModule } from "@angular/common";
     HomeModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    TableComponentModule,
     CommonModule,
+    TableModule,
+    HttpClientModule,
+    ItemsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
