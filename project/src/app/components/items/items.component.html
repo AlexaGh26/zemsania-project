@@ -1,7 +1,9 @@
 <div>
   <p-menubar [model]="itemsMenu"></p-menubar>
 </div>
-<p-table [value]="items" [columns]="cols" [paginator]="true" [rows]="5">
+
+<p-table selectionMode="single" [(selection)]="selectedItems" 
+  [value]="items" [columns]="cols" [paginator]="true" [rows]="5">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th *ngFor="let col of columns">
@@ -10,7 +12,7 @@
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-item let-columns="columns">
-    <tr>
+    <tr [pSelectableRow]="item">
       <td *ngFor="let col of columns">
         {{item[col.field]}}
       </td>
@@ -18,39 +20,51 @@
   </ng-template>
 </p-table>
 
+<p-dialog header="     " [(visible)]="displaySaveDialog" [modal]="true">
+  <h3>{{textDialog}}</h3>
 
-<p-dialog header="New Item" [(visible)]="displaySaveDialog" [modal]="true">
+  <form [formGroup]="varForm" (ngSubmit)="saveInfo(varForm.value)" >
   <div class="ui-g ui-fluid ">
 
     <div id="block">
       <div id="display">
-        <label for="_about">_About</label>
+        <label   for="_about">_About</label>
       </div>
       <div id="display">
-        <input pInputText id="_about" [(ngModel)]="itemModel._about" required autofocus />
+        <input  formControlName="_about" pInputText id="_about" [(ngModel)]="itemModel._about" required autofocus />
       </div>
     </div>
 
     <div id="block">
-      <div id="display" >
+      <div id="display">
         <label for="accessURL">AccessURL</label>
       </div>
-      <div  id="display" >
-        <input pInputText id="accessURL" [(ngModel)]="itemModel.accessURL" required autofocus />
+      <div id="display">
+        <input formControlName="accessURL" pInputText id="accessURL" [(ngModel)]="itemModel.accessURL" required autofocus />
       </div>
     </div>
 
     <div id="block">
-        <div id="display" >
-          <label for="title">Title</label>
-        </div>
-        <div  id="display" >
-          <input pInputText id="title" [(ngModel)]="itemModel.title" required autofocus />
-        </div>
+      <div id="display">
+        <label for="title">Title</label>
       </div>
+      <div id="display">
+        <input formControlName="title" pInputText id="title" [(ngModel)]="itemModel.title" required autofocus />
+      </div>
+    </div>
   </div>
   <div id="button-container">
-    <button pButton type="button" icon="pi pi-check" label="Send" (click) ="save()" ></button>
+    <button  [disabled]="varForm.invalid" pButton type="submit" icon="pi pi-check" label="Send" (click)="saveEditInfo(varForm.value)" ></button>
   </div>
-  
+</form>
 </p-dialog>
+
+<p-dialog header="Delete Item" [(visible)]="displayDeleteDialog" [modal]="true">
+  <div id="block-buttons-delete">
+    <div id="display">
+      <button pButton type="button" icon="pi pi-trash" label="Delete" (click)="deleteItem(varForm.value)"></button>
+    </div>
+  </div>
+</p-dialog>
+
+

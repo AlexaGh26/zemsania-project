@@ -12,7 +12,11 @@ import {InputTextModule} from 'primeng/inputtext';
 import {FileUploadModule} from 'primeng/fileupload';
 import {ToolbarModule} from 'primeng/toolbar';
 import {RatingModule} from 'primeng/rating';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import {MessageService} from 'primeng/api';
+
 
 @NgModule({
   declarations: [ItemsComponent],
@@ -32,8 +36,13 @@ import { FormsModule } from '@angular/forms';
     RatingModule,
     ButtonModule,
     FormsModule,
+    ReactiveFormsModule,
+    MessagesModule,
+    MessageModule,
+    
     ],
     providers: [
+      MessageService,
     ],
 })
 export class ItemsModule { }
