@@ -20,7 +20,7 @@
   </ng-template>
 </p-table>
 
-<p-dialog header="     " [(visible)]="displaySaveDialog" [modal]="true">
+<p-dialog [showHeader]="false" [(visible)]="displaySaveDialog" [modal]="true" [closeOnEscape]="true" [closable]="true">
   <h3>{{textDialog}}</h3>
 
   <form [formGroup]="varForm" (ngSubmit)="saveInfo(varForm.value)" >
@@ -62,7 +62,7 @@
 <p-dialog header="Delete Item" [(visible)]="displayDeleteDialog" [modal]="true">
   <div id="block-buttons-delete">
     <div id="display">
-      <button pButton type="button" icon="pi pi-trash" label="Delete" (click)="deleteItem(varForm.value)"></button>
+      <button pButton type="button" icon="pi pi-trash" label="Delete" (click)="deleteItem()"></button>
     </div>
   </div>
 </p-dialog>

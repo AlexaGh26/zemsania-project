@@ -86,18 +86,16 @@ export class ItemsComponent implements OnInit, OnDestroy {
   getAll() {
     this.suscribeGetAll = this.itemsServices.getAll()
       .pipe(
-        map(async ({ result }) => {
+        map(({ result }) => {
           let items: items[] = []
-          let count = 0;
-          await result.items.map((item) => {
+           result.items.map((item, index) => {
             let bodyItem: items = {
               _about: item._about,
               accessURL: item.accessURL,
               title: item.title,
-              id: count,
+              id: index,
             }
             items.push(bodyItem);
-            count++;
           })
           this.items = items;
         })
@@ -146,6 +144,7 @@ export class ItemsComponent implements OnInit, OnDestroy {
     if (!this.editSelectd) {
       this.items = [...this.items, infoFormId]
     }
+    this.displaySaveDialog = false;
   }
 
   saveEditInfo(infoForm: items) {
@@ -156,24 +155,23 @@ export class ItemsComponent implements OnInit, OnDestroy {
       id: this.selectedItems.id,
     }
     if (this.editSelectd) {
-      let itemsEdit: items[] = []
-      this.items.map(item => {
+      this.items.filter((item, index) => {
         if (item.id === this.selectedItems.id) {
-          this.items.splice(this.selectedItems.id -1 , 1, infoFormId)
+          this.items.splice(index , 1, infoFormId)
         }
       })
       this.saveItem(this.itemModel)
     }
+    this.displayEditDialog = false;
   }
 
-  deleteItem(infoItem: items) {
-    this.displayDeleteDialog = true;
+  deleteItem() {
     this.items.filter((item, index) =>{
       if (item.id === this.selectedItems.id ) {
         this.items.splice(index , 1)
       }
     })
-    
+    this.displayDeleteDialog = false;
   }
 
 }
